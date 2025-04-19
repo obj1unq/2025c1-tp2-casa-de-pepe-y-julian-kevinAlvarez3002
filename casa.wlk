@@ -9,7 +9,7 @@ object casaDePepeYJulian {
   method cosasCompradas() = cosasCompradas
   
   method comprar(cosa) {
-    cuenta.gastar(cosa.precio())
+    cuenta.extraer(cosa.precio())
     cosasCompradas.add(cosa)
   }
   
@@ -54,20 +54,23 @@ object cuentaCorriente {
   method depositar(deposito) {
     saldo +=deposito
   } 
-  method puedoGastar(coste) =coste<=saldo 
-  method validarGastar(coste){
-    if(not self.puedoGastar(coste)){
+  method puedoextraer(cantidadAExtraer) =cantidadAExtraer<=saldo 
+  method validarextraer(cantidadAExtraer){
+    if(not self.puedoextraer(cantidadAExtraer)){
         self.error("no tenes dinero suficiente en tu cuenta")
     }
   } 
-  method gastar(coste) {
-    self.validarGastar(coste)
-    saldo -=coste
+  method extraer(cantidadAExtraer) {
+    self.validarextraer(cantidadAExtraer)
+    saldo -=cantidadAExtraer
   }
 }
 object cuentaConGasto {
     var property saldo = 0
-    const costeOperacion = 20
+    var costeAExtraerOperacion = 20
+    method costeAExtraerOperacion(_costeAExtraerOperacion) {
+      costeAExtraerOperacion= _costeAExtraerOperacion
+    }
     method puedoDepositar(deposito) = deposito<=1000
     method validarDepositar(deposito) {
       if(not self.puedoDepositar(deposito)){
@@ -76,9 +79,9 @@ object cuentaConGasto {
     }
   method depositar(deposito) {
     self.validarDepositar(deposito)
-    saldo +=deposito - costeOperacion
+    saldo +=deposito - costeAExtraerOperacion
   } 
-  method gastar(coste) {
-    saldo -=coste
+  method extraer(cantidadAExtraer) {
+    saldo -=cantidadAExtraer
   }
 }

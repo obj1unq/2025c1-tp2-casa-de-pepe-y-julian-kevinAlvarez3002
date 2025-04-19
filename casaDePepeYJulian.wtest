@@ -48,3 +48,35 @@ describe "test de cosas compradas y electrodomesticos" {
     )
   }
 }
+describe "test de cuentas bancarias" {
+  test "comportamiento de la cuenta corriente" {
+    cuentaCorriente.saldo(20)
+    cuentaCorriente.depositar(1000)
+    assert.equals(1020, cuentaCorriente.saldo())
+    cuentaCorriente.extraer(50)
+    assert.equals(970, cuentaCorriente.saldo())
+    assert.throwsException({ cuentaCorriente.extraer(2000) })
+    assert.equals(970, cuentaCorriente.saldo())
+  }
+  test "comportamiento de la cuenta con gasto" {
+    cuentaConGasto.saldo(500)
+    cuentaConGasto.costeAExtraerOperacion(20)
+    cuentaConGasto.depositar(1000)
+    assert.equals(1480, cuentaConGasto.saldo())
+    cuentaConGasto.extraer(30)
+    assert.equals(1450, cuentaConGasto.saldo())
+    assert.throwsException({ cuentaConGasto.depositar(2000) })
+    assert.equals(1450, cuentaConGasto.saldo())
+    cuentaConGasto.extraer(2000)
+    assert.equals(-550, cuentaConGasto.saldo())
+  }
+  test "funcionamiento del gasto de la casa" {
+    casaDePepeYJulian.cuenta(cuentaCorriente)
+    cuentaCorriente.saldo(1000)
+    casaDePepeYJulian.comprar(tiraDeAsado)
+    casaDePepeYJulian.comprar(paqueteDeFideos)
+    assert.equals(600, cuentaCorriente.saldo())
+    
+
+  }
+}
