@@ -1,5 +1,4 @@
 import cosas.*
-//es necesario importar cosas teniendo en cuenta que ya se importan en casa?
 import casa.*
 
 describe "test de cosas compradas y electrodomesticos" {
