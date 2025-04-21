@@ -30,7 +30,7 @@ object casaDePepeYJulian {
   method compraMasCara() = cosasCompradas.max({ cosa => cosa.precio() })
   
   method comprados(categoria) = cosasCompradas.filter(
-    { cosa => cosa.categoria() == categoria }
+    { cosa => cosa.esDeCategoria(categoria) }
   )
   
   method malaEpoca() = cosasCompradas.all(
